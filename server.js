@@ -10,7 +10,7 @@ var io = socketIo.listen(server);
 var port = process.env.PORT || 88;
 //server.listen(port);
 
-app.use(express.static(__dirname + 'public'));
+app.use(express.static(__dirname + '/public'));
 
 app.get('/reset', function(req, res) {
     res.send('Resetting');
