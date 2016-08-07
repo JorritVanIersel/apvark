@@ -1,9 +1,9 @@
 {
-   "name": "MiniDoodle",
+   "name": "apvark doodling",
    "description": "Collaborative drawing canvas",
-   "author": "Code-and.Coffee",
+   "author": "Apvark",
    "dependencies" : {
-      "express": "4.x",
-      "socket.io": "*"
+      "express": "^4.13.4",
+      "socket.io": "^1.4.6"
    }
 }
