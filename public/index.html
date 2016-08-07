@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <title>ApvarkDoodling</title>
+      <meta charset="utf-8">
+       <meta name="viewport"
+  content="
+    height = device-height,
+    width = device-width,
+    initial-scale = 1.0,
+    minimum-scale = 1.0,
+    maximum-scale = 1.0,
+    user-scalable = no,
+    target-densitydpi = device-dpi
+    " />
+      <link rel="stylesheet" href="style.css" />
+      <script src="socket.io/socket.io.js"></script>
+      <script src="client.js"></script>
+   </head>
+   <body>
+       <input type="range" id="rag" name="points" min="1" max="40" value='1'>
+         <input type="color" id="col" name="favcolor" value="#ff0000">
+      <canvas id="drawing"></canvas>
+   </body>
+</html>
