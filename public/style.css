@@ -25,3 +25,9 @@ canvas {
     margin-top: 2%;
     width: 5%;
 }
+button{
+   position: absolute;
+   z-index: 2;
+    width: 5%;
+    margin-top: 4%;
+}

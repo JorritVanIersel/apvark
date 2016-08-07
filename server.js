@@ -38,6 +38,11 @@ io.on('connection', function (socket) {
 
       io.emit('draw_line', { line: data.line });
    });
+
+    socket.on('clear_all', function(){
+         line_history = [];
+        io.emit('clear');
+    })
 });
 
 server.listen(port, function() {

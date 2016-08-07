@@ -1,3 +1,4 @@
+ var socket  = io.connect();
 document.addEventListener("DOMContentLoaded", function() {
    var mouse = {
       click: false,
@@ -13,7 +14,7 @@ document.addEventListener("DOMContentLoaded", function() {
    var ctx = canvas.getContext('2d');
    var width   = window.innerWidth;
    var height  = window.innerHeight;
-   var socket  = io.connect();
+
 
    canvas.width = width;
    canvas.height = height;
@@ -49,7 +50,6 @@ document.addEventListener("DOMContentLoaded", function() {
       mouse.move = true;
    };
 
-
 	socket.on('draw_line', function (data) {
       var line = data.line;
 
@@ -77,7 +77,15 @@ document.addEventListener("DOMContentLoaded", function() {
       mouse.pos_prev = {x: mouse.pos.x, y: mouse.pos.y};
       setTimeout(mainLoop, 20);
    }
-   mainLoop();
+
+      mainLoop();
+
 });
+
+function delet(){
+if(confirm('Are you sure you want to delete everything drawn?')){
+  socket.emit('clear_all');
+    }
+}
 
 
