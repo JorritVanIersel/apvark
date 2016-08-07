@@ -6,8 +6,12 @@ var express = require('express'),
 
 var server =  http.createServer(app);
 var io = socketIo.listen(server);
-server.listen(88);
-app.use(express.static(__dirname + '/public'));
+
+var port = process.env.PORT || 88;
+//server.listen(port);
+
+app.use(express.static(__dirname + 'public'));
+
 app.get('/reset', function(req, res) {
     res.send('Resetting');
     line_history = [];
@@ -34,4 +38,8 @@ io.on('connection', function (socket) {
 
       io.emit('draw_line', { line: data.line });
    });
+});
+
+server.listen(port, function() {
+ console.log('listening on' + port);
 });
