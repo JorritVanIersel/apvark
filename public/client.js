@@ -15,17 +15,8 @@ document.addEventListener("DOMContentLoaded", function() {
    var width   = window.innerWidth;
    var height  = window.innerHeight;
 
-
    canvas.width = width;
    canvas.height = height;
-
- /* window.onresize= function(){
-    var width   = window.innerWidth;
-    var height  = window.innerHeight;
-    console.log(height);
-    canvas.style.width = width;
-    canvas.style.height = height;
-  }; */
 
    canvas.onmousedown = function(e){ mouse.click = true; };
     canvas.onmouseup = function(e){ mouse.click = false; };
