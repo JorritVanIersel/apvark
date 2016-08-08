@@ -14,28 +14,34 @@ app.get('/reset', function(req, res) {
     io.emit('clear');
 });
 
+
 var line_history = [];
+var his = [[],[],[],[],[],[],[],[],[],[]];
 
 io.on('connection', function (socket) {
 
-   for (var i = 0; i < line_history.length; i++) {
-      socket.emit('draw_line', { line: line_history[i] } );
-   }
+    socket.on('room', function(room) {
+        socket.join(room);
+        socket.room = room;
+
+        for (var i = 0; i < his[socket.room].length; i++) {
+            socket.emit('draw_line', { line: his[socket.room][i] } );
+        }
+    });
 
    socket.on('draw_line', function (data) {
-
-      line_history.push(data.line);
-
-      io.emit('draw_line', { line: data.line });
-
+       var room = socket.room;
+        his[socket.room].push(data.line);
+       io.in(socket.room).emit('draw_line', { line: data.line });
    });
 
    socket.on('clear_all', function(){
-      line_history = [];
-       io.emit('clear');
+       his[socket.room] = [];
+       io.in(socket.room).emit('clear');
     })
 });
 
 server.listen(port, function() {
  console.log('listening on' + port);
 });
+

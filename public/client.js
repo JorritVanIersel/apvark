@@ -8,21 +8,30 @@ document.addEventListener("DOMContentLoaded", function() {
       colour: "blue"
 
    };
+
+    var a = location.href;var b = Number(a.substring(a.indexOf("?")+1));
+    if (b < 10) var room = b;
+    else room = 0;
+
+    socket.on('connect', function() {
+
+        socket.emit('room', room);
+    });
+
    var touch = is_touch_device();
-
    var canvas  = document.getElementById('drawing');
-
    var ctx = canvas.getContext('2d');
    var width = document.body.clientWidth;
-
-var height = document.body.clientHeight;
+   var height = document.body.clientHeight;
 
    canvas.width = width;
    canvas.height = height;
 
    canvas.onmousedown = function(e){ mouse.click = true; };
    canvas.onmouseup = function(e){ mouse.click = false; };
-   canvas.ontouchstart = function(e){ mouse.click = true;mouse.pos_prev.x = e.touches[0].clientX / width;mouse.pos_prev.y = e.touches[0].clientY / height;};
+   canvas.ontouchstart = function(e){ mouse.click = true
+
+                                     mouse.pos_prev.x = e.touches[0].clientX / width;mouse.pos_prev.y = e.touches[0].clientY / height;};
    canvas.ontouchend = function(e){ mouse.click = false; };
 
    canvas.onmousemove = function(e) {
@@ -32,8 +41,10 @@ var height = document.body.clientHeight;
       mouse.move = true;
    };
     canvas.ontouchmove = function(e) {
+
       mouse.pos.x = e.touches[0].clientX / width;
       mouse.pos.y = e.touches[0].clientY / height;
+
       mouse.pos.w = document.getElementById("rag").value;
       mouse.move = true;
    };
@@ -90,3 +101,9 @@ function is_touch_device() {
     return false;
   }
 }
+
+/*  mouse.pos_prev.x = +mouse.pos_prev.x.toFixed(2);
+          mouse.pos_prev.y = +mouse.pos_prev.y.toFixed(2);
+          mouse.pos.x = +mouse.pos.x.toFixed(2);
+          mouse.pos.y = +mouse.pos.y.toFixed(2);
+          */
