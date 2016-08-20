@@ -40,19 +40,19 @@ io.on('connection', function (socket) {
         }
 
 
-var i = 0;
+var k = 0;
 function myLoop () {
    setTimeout(function () {
-   socket.emit('draw_line', { line: his[socket.room][i] } );
-    i++;
-      if (i < his[socket.room].length) {
+   socket.emit('draw_line', { line: his[socket.room][k] } );
+    k++;
+      if (k < his[socket.room].length) {
          myLoop();
       }
-   }, 10)
+   }, 5)
 }
-
+ if (his[socket.room].length > 0) {
 myLoop();
-
+ }
        // for (var i = 0; i < his[socket.room].length; i++) {
 
           //  socket.emit('draw_line', { line: his[socket.room][i] } );}
