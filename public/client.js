@@ -9,10 +9,8 @@ document.addEventListener("DOMContentLoaded", function() {
 
    };
 
-    var a = location.href;var b = Number(a.substring(a.indexOf("?")+1));
-    if (b < 10) var room = b;
-    else room = 0;
-
+    var a = location.href;
+    var room = a.substring(a.indexOf("?")+1);
     socket.on('connect', function() {
 
         socket.emit('room', room);

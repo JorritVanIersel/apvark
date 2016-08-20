@@ -16,17 +16,48 @@ app.get('/reset', function(req, res) {
 
 
 var line_history = [];
-var his = [[],[],[],[],[],[],[],[],[],[]];
-
+var his = [[]];
+var list = [""];
 io.on('connection', function (socket) {
 
     socket.on('room', function(room) {
-        socket.join(room);
-        socket.room = room;
 
-        for (var i = 0; i < his[socket.room].length; i++) {
-            socket.emit('draw_line', { line: his[socket.room][i] } );
+        for (i = 0; i < his.length; i++){
+
+            if (list[i] == room){
+
+                socket.join(i);
+                socket.room = i;
+
+            }
         }
+
+        if(socket.room == undefined) {
+            his.push([]);
+            list.push(room);
+            socket.join(his.length - 1);
+        socket.room = his.length - 1;
+        }
+
+
+var i = 0;
+function myLoop () {
+   setTimeout(function () {
+   socket.emit('draw_line', { line: his[socket.room][i] } );
+    i++;
+      if (i < his[socket.room].length) {
+         myLoop();
+      }
+   }, 10)
+}
+
+myLoop();
+
+       // for (var i = 0; i < his[socket.room].length; i++) {
+
+          //  socket.emit('draw_line', { line: his[socket.room][i] } );}
+
+
     });
 
    socket.on('draw_line', function (data) {
@@ -44,4 +75,5 @@ io.on('connection', function (socket) {
 server.listen(port, function() {
  console.log('listening on' + port);
 });
+
 
