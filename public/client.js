@@ -51,7 +51,14 @@ document.addEventListener("DOMContentLoaded", function() {
       var line = data.line;
 
       ctx.strokeStyle = line[2];
+        if (line[0].w > 1){
+        ctx.fillStyle = line[2];
+        ctx.beginPath();
+        ctx.arc(line[0].x * width,line[0].y * height,0.5 * line[0].w,0,2*Math.PI);
+        ctx.fill();
+        }
       ctx.lineWidth = line[0].w;
+
       ctx.beginPath();
       ctx.moveTo(line[0].x * width, line[0].y * height);
       ctx.lineTo(line[1].x * width, line[1].y * height);

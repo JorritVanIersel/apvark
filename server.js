@@ -53,11 +53,7 @@ function myLoop () {
  if (his[socket.room].length > 0) {
 myLoop();
  }
-       // for (var i = 0; i < his[socket.room].length; i++) {
-
-          //  socket.emit('draw_line', { line: his[socket.room][i] } );}
-
-
+ // for (var i = 0; i < his[socket.room].length; i++) {socket.emit('draw_line', { line: his[socket.room][i] } );}
     });
 
    socket.on('draw_line', function (data) {
