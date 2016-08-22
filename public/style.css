@@ -28,6 +28,13 @@ canvas {
     width: 100px;
     height: 25px;
 }
+#screen {
+    position: absolute;
+    z-index: 2;
+    margin-top: 75px;
+    width: 100px;
+    height: 25px;
+}
 button{
    position: absolute;
    z-index: 2;

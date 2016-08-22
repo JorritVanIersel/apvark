@@ -92,7 +92,14 @@ document.addEventListener("DOMContentLoaded", function() {
 
 });
 
+function photo(){
+    var canvas2 = document.getElementById("drawing");
+    var img    = canvas2.toDataURL("image/png");
+    var win = window.open(img, '_blank');
+}
+
 function delet(){
+
 if(confirm('Are you sure you want to delete everything drawn?')){
   socket.emit('clear_all');
     }
@@ -107,8 +114,3 @@ function is_touch_device() {
   }
 }
 
-/*  mouse.pos_prev.x = +mouse.pos_prev.x.toFixed(2);
-          mouse.pos_prev.y = +mouse.pos_prev.y.toFixed(2);
-          mouse.pos.x = +mouse.pos.x.toFixed(2);
-          mouse.pos.y = +mouse.pos.y.toFixed(2);
-          */
