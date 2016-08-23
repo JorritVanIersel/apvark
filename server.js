@@ -57,7 +57,7 @@ var k = 0; function myLoop () { setTimeout(function () {
 
            socket.del = false;
 
-      setTimeout(function(){socket.del = true;}, 30000);
+      setTimeout(function(){socket.del = true;}, 10000);
 
        io.in(socket.room).emit('clear');
            console.log(resets[resets.length-1].slice())

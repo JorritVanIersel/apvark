@@ -27,9 +27,12 @@ document.addEventListener("DOMContentLoaded", function() {
 
    canvas.onmousedown = function(e){ mouse.click = true; };
    canvas.onmouseup = function(e){ mouse.click = false; };
-   canvas.ontouchstart = function(e){ mouse.click = true
+   canvas.ontouchstart = function(e){ mouse.click = true;
+      mouse.pos_prev.x = e.touches[0].clientX / width;
+      mouse.pos_prev.y = e.touches[0].clientY / height;
+      mouse.pos.x = e.touches[0].clientX / width;
+      mouse.pos.y = e.touches[0].clientY / height;};
 
-                                     mouse.pos_prev.x = e.touches[0].clientX / width;mouse.pos_prev.y = e.touches[0].clientY / height;};
    canvas.ontouchend = function(e){ mouse.click = false; };
 
    canvas.onmousemove = function(e) {
@@ -54,7 +57,7 @@ document.addEventListener("DOMContentLoaded", function() {
         if (line[0].w > 1){
         ctx.fillStyle = line[2];
         ctx.beginPath();
-        ctx.arc(line[0].x * width,line[0].y * height,0.5 * line[0].w,0,2*Math.PI);
+        ctx.arc(line[0].x * width,line[0].y * height,0.47 * line[0].w,0,2*Math.PI);
         ctx.fill();
         }
       ctx.lineWidth = line[0].w;
@@ -100,7 +103,7 @@ function photo(){
 
 function delet(){
 
-if(confirm('Are you sure you want to delete everything drawn?')){
+if(confirm('Are you sure you want to delete everything drawn? \n You can only do this once every 10 seconds')){
   socket.emit('clear_all');
     }
 }
