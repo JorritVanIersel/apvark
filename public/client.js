@@ -10,7 +10,8 @@ document.addEventListener("DOMContentLoaded", function() {
    };
 
     var a = location.href;
-    var room = a.substring(a.indexOf("?")+1);
+    if (a.indexOf("?") > 0) var room = a.substring(a.indexOf("?")+1);
+    else {var room = "random";}
     socket.on('connect', function() {
 
         socket.emit('room', room);

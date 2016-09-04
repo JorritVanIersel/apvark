@@ -15,12 +15,21 @@ var resets = [[]];
 io.on('connection', function (socket) {
     socket.del = true;
     socket.on('room', function(room) {
+
+      if (room == "random"){
+         var lo = Math.floor((Math.random() * his.length));
+               console.log(lo);
+                socket.join(lo);
+                socket.room = lo;
+      }
+      else {
         for (i = 0; i < his.length; i++){
             if (list[i] == room){
                 socket.join(i);
                 socket.room = i;
             }
         }
+      }
         if(socket.room == undefined) {
 
           if(room.indexOf('tic') > -1) resets.push(tic);
