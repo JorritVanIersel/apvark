@@ -8,17 +8,28 @@ var io = socketIo.listen(server);
 var port = process.env.PORT || 88;
 app.use(express.static(__dirname + '/public'));
 
+var data;
 var his = [[]];
-var list = [""];
+var list = ["main"];
 var resets = [[]];
 
 io.on('connection', function (socket) {
     socket.del = true;
     socket.on('room', function(room) {
 
+      if(socket.room){
+       console.log(room);
+
+     socket.leave(socket.room);
+     socket.room = undefined;
+   }
+if (room == "home"){
+
+          data = list;
+      }
       if (room == "random"){
          var lo = Math.floor((Math.random() * his.length));
-               console.log(lo);
+
                 socket.join(lo);
                 socket.room = lo;
       }
@@ -40,16 +51,15 @@ io.on('connection', function (socket) {
             his.push(resets[resets.length-1].slice());
             list.push(room);
             socket.join(his.length - 1);
+
             socket.room = his.length - 1;
 
-        }
+                    }
 
-var k = 0; function myLoop () { setTimeout(function () {
-   socket.emit('draw_line', { line: his[socket.room][k] } );
-       k++;
-      if (k < his[socket.room].length) myLoop();
-   }, 5)}
- if (his[socket.room].length > 0) myLoop();
+        socket.emit('room', room, data);
+      var k = 0; function myLoop () { setTimeout(function () { socket.emit('draw_line', { line: his[socket.room][k] } );k++;if (k < his[socket.room].length) myLoop();}, 5)}
+      if (his[socket.room].length > 0) myLoop();
+console.log(his.length);
     });
 
    socket.on('draw_line', function (data) {
@@ -69,7 +79,7 @@ var k = 0; function myLoop () { setTimeout(function () {
       setTimeout(function(){socket.del = true;}, 10000);
 
        io.in(socket.room).emit('clear');
-           console.log(resets[resets.length-1].slice())
+
           his[socket.room] = resets[resets.length-1].slice();
         for (var i = 0; i < his[socket.room].length; i++){
             io.in(socket.room).emit('draw_line', { line: his[socket.room][i]});

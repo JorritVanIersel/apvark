@@ -18,11 +18,30 @@
       <script src="client.js"></script>
    </head>
    <body>
-       <input type="range" id="rag" name="points" min="1" max="40" value='1'>
-         <input type="color" id="col" name="favcolor" value="#ff0000">
-            <button onclick="delet();">Clear canvas</button>
-                <button onclick="photo()" id="screen">photo</button>
-            	   <button onclick="alert('Welcome to Apvark Doodlin!\nPress the colour to change the paint colour\nMove the switch to change the size of your brush\nPress clear all if you want to erase your whole artwork\nPress photo for a screenshot of your canvas/nUse a ?+ a name at the end of the url to create a room, e.g. apvark.herokuapp.com?coolname \nStart your roomname with dot/line/tic for special rooms!')" id="scree">Help</button>
+
+
+     <ul>
+       <li><input class="great" type="range" id="rag" name="points" min="1" max="40" value='1'></li>
+
+        <li> <input class="great" type="color" id="col" name="favcolor" value="#ff0000"></li>
+
+           <li><button class="great" onclick="delet();">Clear canvas</button></li>
+
+              <li>  <button class="great"onclick="photo()" id="screen">Screenshot</button></li>
+
+            	  <li> <button class="great" onclick="alert('Welcome to Apvark Doodlin!\nPress the colour to change the paint colour\nMove the switch to change the size of your brush\nPress clear all if you want to erase your whole artwork\nPress photo for a screenshot of your canvas/nUse a ?+ a name at the end of the url to create a room, e.g. apvark.herokuapp.com?coolname \nStart your roomname with dot/line/tic for special rooms!')" id="scree">Help</button></li>
+
+                <li> <p class="great" id = "wname">Roomname: </p></li>
+
+            <li> <input class="great" type="text" id="sec" maxlength="10"></li>
+           <li><button class="great" onclick="sendRoom()">Enter Room</button></li>
+      </ul>
+
+
+      <canvas id="drawing"></canvas>
+   </body>
+</html>
+
       <canvas id="drawing"></canvas>
    </body>
 </html>

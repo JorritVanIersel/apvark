@@ -10,8 +10,8 @@ document.addEventListener("DOMContentLoaded", function() {
    };
 
     var a = location.href;
-    if (a.indexOf("?") > 0) var room = a.substring(a.indexOf("?")+1);
-    else {var room = "random";}
+    if (a.indexOf("?") > 0){ var room = a.substring(a.indexOf("?")+1); }
+    else {var room = "home";}
     socket.on('connect', function() {
 
         socket.emit('room', room);
@@ -37,8 +37,8 @@ document.addEventListener("DOMContentLoaded", function() {
    canvas.ontouchend = function(e){ mouse.click = false; };
 
    canvas.onmousemove = function(e) {
-      mouse.pos.x = e.clientX / width;
-      mouse.pos.y = e.clientY / height;
+      mouse.pos.x = (e.clientX - canvas.offsetLeft)/ width;
+      mouse.pos.y = (e.clientY - canvas.offsetTop)/ height;
       mouse.pos.w = document.getElementById("rag").value;
       mouse.move = true;
    };
@@ -73,6 +73,19 @@ document.addEventListener("DOMContentLoaded", function() {
     ctx.clearRect(0,0,width,height);
 
    });
+ socket.on('room', function (room, data) {
+ctx.fillStyle = "white";
+  ctx.clearRect(0,0,width,height);
+     ctx.fillRect(0,0,width,height);
+  console.log(room);
+   document.getElementById('wname').innerHTML = 'Roomname: <BR>';document.getElementById('sec').value = room;
+   if (data){
+    for (i = 0; i < data.length; i++){
+      console.log(data[i]);
+    }
+   }
+   });
+
 
    function mainLoop() {
 
@@ -97,6 +110,7 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 
 function photo(){
+     socket.emit('connection');
     var canvas2 = document.getElementById("drawing");
     var img    = canvas2.toDataURL("image/png");
     var win = window.open(img, '_blank');
@@ -109,6 +123,13 @@ if(confirm('Are you sure you want to delete everything drawn? \n You can only do
     }
 }
 
+function sendRoom(){
+
+  room = document.getElementById('sec').value;
+        socket.emit('room', room);
+
+
+}
 function is_touch_device() {
   try {
     document.createEvent("TouchEvent");
