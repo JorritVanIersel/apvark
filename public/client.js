@@ -139,3 +139,16 @@ function is_touch_device() {
   }
 }
 
+function showDiv(){
+
+        if( document.getElementById("ull").style.visibility == 'hidden') {
+
+            document.getElementById("ull").style.visibility = 'visible';
+        }
+        else
+        {
+
+            document.getElementById("ull").style.visibility = 'hidden';
+             document.getElementById('openclose').style.visibility = 'visible';
+        }
+    }

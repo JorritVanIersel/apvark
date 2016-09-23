@@ -16,11 +16,25 @@
       <link rel="stylesheet" href="style.css" />
       <script src="socket.io/socket.io.js"></script>
       <script src="client.js"></script>
+       <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+        <script>
+  $( function() {
+    $( "#ull" ).draggable();
+  } );
+       </script>
+<script>
+var isAndroid = navigator.userAgent.toLowerCase().indexOf("android") > -1; //&& ua.indexOf("mobile");
+if(isAndroid) {
+    document.write('<meta name="viewport" content="width=device-width,height='+window.innerHeight+', initial-scale=1.0">');
+}
+</script>
    </head>
    <body>
 
 
-     <ul>
+     <ul id="ull">
+         <p onclick="showDiv();" id="openclose"> - </p>
        <li><input class="great" type="range" id="rag" name="points" min="1" max="40" value='1'></li>
 
         <li> <input class="great" type="color" id="col" name="favcolor" value="#ff0000"></li>
