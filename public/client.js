@@ -1,5 +1,9 @@
  var socket = io.connect();
-
+window.onpageshow = function(event) {
+if (event.persisted) {
+    window.location.reload()
+}
+};
  document.addEventListener("DOMContentLoaded", function() {
      var mouse = {
          click: false,
@@ -104,7 +108,7 @@
      };
 
      socket.on('draw_line', function(data) {
-         console.log(data);
+
          var line = data.line;
 
          ctx.strokeStyle = line[2];
@@ -124,7 +128,7 @@
 
      });
      socket.on('texter', function(data) {
-         console.log(data);
+
          var line = data.line;
          ctx.strokeStyle = line[1];
          ctx.font = 1.2 * line[0].w + 'pt verdana';
@@ -142,7 +146,7 @@
          ctx.clearRect(0, 0, width, height);
          ctx.fillRect(0, 0, width, height);
 
-
+         window.history.replaceState('Object', 'Title', '/?' + room);
          document.getElementById('wname').innerHTML = 'Roomname: <BR>';
          document.getElementById('sec').value = room;
          if (data) {
