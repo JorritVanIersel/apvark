@@ -5,6 +5,8 @@ if (event.persisted) {
 }
 };
  document.addEventListener("DOMContentLoaded", function() {
+
+
      var mouse = {
          click: false,
          move: false,
@@ -13,7 +15,9 @@ if (event.persisted) {
              y: 0
          },
          pos_prev: false,
-         colour: "blue"
+         colour: "blue",
+         width: 10,
+         sticker: '😄'
 
      };
 
@@ -71,9 +75,25 @@ if (event.persisted) {
          }
          stopEvent(e);
      }
+function middle() {
+    mouse.width = document.getElementById("rag").value;
+    ctx.font = 1.2 * mouse.width + 'pt verdana';
+var m=ctx.measureText(mouse.sticker);
+    posi = {
+         x: mouse.pos.x - (0.5 * m.width / canvas.width),
+        y: mouse.pos.y - (0.5 * m.width / canvas.height),
+        text: mouse.sticker,
+        w: mouse.width
+        };
+        socket.emit('text', {
+            line: [posi, mouse.colour]
+        });
 
+}
      canvas.onmousedown = function(e) {
-         if (e.which === 1) mouse.click = true;
+         e.preventDefault();
+         if (e.which === 1) mouse.click = true
+         if (e.which === 2) middle();
      };
      canvas.onmouseup = function(e) {
          if (e.which === 1) mouse.click = false;
