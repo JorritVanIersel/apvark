@@ -13,6 +13,7 @@
     user-scalable = no,
     target-densitydpi = device-dpi
     " />
+    <meta http-equiv="refresh" content="20" >
       <link rel="stylesheet" href="style.css" />
       <script src="socket.io/socket.io.js"></script>
       <script src="client.js"></script>
@@ -32,10 +33,15 @@ if(isAndroid) {
    </head>
    <body>
 
+<ul id="my">
+  <input type="text" text="dd" id="te" name="texts">
+</ul>
+
+
 
      <ul id="ull">
          <p onclick="showDiv();" id="openclose"> - </p>
-       <li><input class="great" type="range" id="rag" name="points" min="1" max="40" value='1'></li>
+       <li><input class="great" type="range" id="rag" name="points" min="1" max="40" value='10'></li>
 
         <li> <input class="great" type="color" id="col" name="favcolor" value="#ff0000"></li>
 
@@ -53,9 +59,8 @@ if(isAndroid) {
 
 
       <canvas id="drawing"></canvas>
-   </body>
-</html>
 
-      <canvas id="drawing"></canvas>
+
+
    </body>
 </html>

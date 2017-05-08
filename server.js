@@ -71,6 +71,13 @@ console.log(his.length);
 
    });
 
+ socket.on('text', function (data) {
+console.log(data); console.log('d');
+       io.in(socket.room).emit('texter', { line: data.line });
+
+
+   });
+
    socket.on('clear_all', function(){
        if (socket.del){
 

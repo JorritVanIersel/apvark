@@ -1,4 +1,5 @@
  var socket  = io.connect();
+
 document.addEventListener("DOMContentLoaded", function() {
    var mouse = {
       click: false,
@@ -8,6 +9,7 @@ document.addEventListener("DOMContentLoaded", function() {
       colour: "blue"
 
    };
+
 
     var a = location.href;
     if (a.indexOf("?") > 0){ var room = a.substring(a.indexOf("?")+1); }
@@ -26,8 +28,37 @@ document.addEventListener("DOMContentLoaded", function() {
    canvas.width = width;
    canvas.height = height;
 
-   canvas.onmousedown = function(e){ mouse.click = true; };
-   canvas.onmouseup = function(e){ mouse.click = false; };
+
+document.oncontextmenu = function(e){
+  e.preventDefault();
+   balk = document.getElementById('my');
+   bolk = document.getElementById('te');
+
+  if (balk.style.visibility == "hidden"){
+  balk.style.visibility = 'visible';
+  balk.style.left = "" + e.clientX + "px" ;
+  bolk.style.fontSize = document.getElementById("rag").value * 1.5 + "px";
+  bolk.style.color =    document.getElementById("col").value;
+
+   balk.style.top = "" + (e.clientY - 10) + "px";
+   document.getElementById('te').focus();
+}
+
+else {
+
+  if (bolk.value == ""){}
+    else {
+
+  posi = {x: parseInt(balk.style.left, 10) / width, y: parseInt(balk.style.top, 10) / height, text: bolk.value, w: document.getElementById("rag").value};
+  socket.emit('text', { line: [ posi, mouse.colour]});
+}
+  balk.style.visibility = 'hidden';
+}
+stopEvent(e);
+}
+
+   canvas.onmousedown = function(e){ if (e.which === 1) mouse.click = true; };
+   canvas.onmouseup = function(e){ if (e.which === 1) mouse.click = false; };
    canvas.ontouchstart = function(e){ mouse.click = true;
       mouse.pos_prev.x = e.touches[0].clientX / width;
       mouse.pos_prev.y = e.touches[0].clientY / height;
@@ -37,10 +68,12 @@ document.addEventListener("DOMContentLoaded", function() {
    canvas.ontouchend = function(e){ mouse.click = false; };
 
    canvas.onmousemove = function(e) {
+
       mouse.pos.x = (e.clientX - canvas.offsetLeft)/ width;
       mouse.pos.y = (e.clientY - canvas.offsetTop)/ height;
       mouse.pos.w = document.getElementById("rag").value;
       mouse.move = true;
+
    };
     canvas.ontouchmove = function(e) {
 
@@ -68,16 +101,26 @@ document.addEventListener("DOMContentLoaded", function() {
       ctx.lineTo(line[1].x * width, line[1].y * height);
       ctx.stroke();
 
+
    });
-    socket.on('clear', function () {
+    socket.on('texter', function (data) {
+
+  ctx.font = 1.2 * data.line[0].w + 'pt verdana';
+ctx.fillStyle = data.line[2];
+ctx.fillText(data.line[0].text,data.line[0].x * width ,data.line[0].y * height + 1.5 * data.line[0].w);
+
+   });
+     socket.on('clear', function () {
     ctx.clearRect(0,0,width,height);
+
 
    });
  socket.on('room', function (room, data) {
 ctx.fillStyle = "white";
-  ctx.clearRect(0,0,width,height);
-     ctx.fillRect(0,0,width,height);
-  console.log(room);
+ctx.clearRect(0,0,width,height);
+   ctx.fillRect(0,0,width,height);
+
+
    document.getElementById('wname').innerHTML = 'Roomname: <BR>';document.getElementById('sec').value = room;
    if (data){
     for (i = 0; i < data.length; i++){
@@ -138,6 +181,14 @@ function is_touch_device() {
     return false;
   }
 }
+
+function stopEvent(event){
+ if(event.preventDefault != undefined)
+  event.preventDefault();
+ if(event.stopPropagation != undefined)
+  event.stopPropagation();
+}
+
 
 function showDiv(){
 
