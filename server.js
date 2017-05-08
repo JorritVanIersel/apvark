@@ -56,15 +56,20 @@ if (room == "home"){
 
                     }
 
-        socket.emit('room', room, data);
-      var k = 0; function myLoop () { setTimeout(function () { socket.emit('draw_line', { line: his[socket.room][k] } );k++;if (k < his[socket.room].length) myLoop();}, 5)}
+
+          socket.emit('room', room, data);
+      var k = 0; function myLoop () { setTimeout(function () {
+
+           if (his[socket.room][k][0].hasOwnProperty('text')){ socket.emit('texter', { line: his[socket.room][k]});}
+            else { socket.emit('draw_line', { line: his[socket.room][k]} ); }
+                k++; if (k < his[socket.room].length) myLoop();}, 5)}
       if (his[socket.room].length > 0) myLoop();
-console.log(his.length);
     });
 
    socket.on('draw_line', function (data) {
 
        if (data.line[0].w < 50 && data.line.length == 3){
+
         his[socket.room].push(data.line);
        io.in(socket.room).emit('draw_line', { line: data.line });
        }
@@ -72,9 +77,9 @@ console.log(his.length);
    });
 
  socket.on('text', function (data) {
-console.log(data); console.log('d');
-       io.in(socket.room).emit('texter', { line: data.line });
 
+      his[socket.room].push(data.line);
+       io.in(socket.room).emit('texter', { line: data.line });
 
    });
 
@@ -89,7 +94,7 @@ console.log(data); console.log('d');
 
           his[socket.room] = resets[resets.length-1].slice();
         for (var i = 0; i < his[socket.room].length; i++){
-            io.in(socket.room).emit('draw_line', { line: his[socket.room][i]});
+           io.in(socket.room).emit('draw_line', { line: his[socket.room][i]});
        }
 
        }
