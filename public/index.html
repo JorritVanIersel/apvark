@@ -13,14 +13,18 @@
     user-scalable = no,
     target-densitydpi = device-dpi
     " />
+        <link rel="stylesheet" type="text/css" href="dist/emojionearea.min.css" media="screen">
       <link rel="stylesheet" href="style.css" />
       <script src="socket.io/socket.io.js"></script>
       <script src="client.js"></script>
-       <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+
+       <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+        <script type="text/javascript" src="dist/emojionearea.js"></script>
+
         <script>
   $( function() {
-    $( "#ull" ).draggable();
+    $( "#my" ).draggable();
   } );
        </script>
 <script>
@@ -53,6 +57,7 @@ if(isAndroid) {
                 <li> <p class="great" id = "wname">Roomname: </p></li>
 
             <li> <input class="great" type="text" id="sec" maxlength="10"></li>
+         <center><div id="standalone" data-emoji-placeholder=":grimacing:" class="testd">😄</div></center>
            <li><button class="great" onclick="sendRoom()">Enter Room</button></li>
       </ul>
 
@@ -60,6 +65,16 @@ if(isAndroid) {
       <canvas id="drawing"></canvas>
 
 
+  <script type="text/javascript">
+    $(document).ready(function() {
+      $("#standalone").emojioneArea({
+        pickerPosition: "right",
+        standalone: true,
+        autocomplete: false
+      });
 
+    });
+
+  </script>
    </body>
 </html>

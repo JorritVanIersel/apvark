@@ -1,9 +1,6 @@
  var socket = io.connect();
-window.onpageshow = function(event) {
-if (event.persisted) {
-    window.location.reload()
-}
-};
+
+
  document.addEventListener("DOMContentLoaded", function() {
 
 
@@ -76,6 +73,8 @@ if (event.persisted) {
          stopEvent(e);
      }
 function middle() {
+    console.log(document.getElementById('standalone').innerHTML);
+    mouse.sticker = document.getElementById('standalone').innerHTML;
     mouse.width = document.getElementById("rag").value;
     ctx.font = 1.2 * mouse.width + 'pt verdana';
 var m=ctx.measureText(mouse.sticker);
